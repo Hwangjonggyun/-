@@ -1,0 +1,91 @@
+﻿<Window x:Class="ScpGamepadAnalyzer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:gamepads="clr-namespace:ScpControl.Usb.Gamepads;assembly=ScpControl"
+        Title="ScpToolkit Gamepad Analyzer" Height="530" Width="700" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Initialized="Window_Initialized"
+        Background="#FF1B1B1B" Icon="gamepad.ico" Closing="Window_Closing">
+    <Window.Resources>
+        <gamepads:UsbBlankGamepad x:Key="UsbBlankGamepad"/>
+    </Window.Resources>
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Introduction -->
+        <GroupBox Grid.Row="0"
+                  Header="Introduction">
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify">
+                This tool allows you to help extending the amount of (non-DualShock) Game Controllers compatible with the ScpToolkit. Plug in the controller you like to analyze and follow the few easy steps described below. Thanks in advance and don't forget to share your results on the forum!
+            </TextBlock>
+        </GroupBox>
+
+        <!-- Step 1 -->
+        <GroupBox Grid.Row="1"
+                  Header="1. Select the device you want to analyze">
+            <DockPanel>
+                <ComboBox ItemsSource="{Binding Source={StaticResource UsbBlankGamepad}, Path=LocalHidDevices}"
+                          SelectedItem="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=SelectedHidDevice}">
+                </ComboBox>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Step 2 -->
+        <GroupBox Grid.Row="2"
+                  Header="2. Open device">
+            <DockPanel LastChildFill="False">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Correct device selected? Let's try opening the device →</TextBlock>
+                <Button Margin="0,0,10,0"
+                        Click="OpenDeviceButton_OnClick">
+                    Open device
+                </Button>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Step 3 -->
+        <GroupBox Grid.Row="3"
+                  Header="3. Interpret buttons">
+            <DockPanel LastChildFill="False">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">Now please take your gamepad, hit Start and follow the instructions →</TextBlock>
+                <Button x:Name="InterpretButton"
+                        IsEnabled="False"
+                        Click="InterpretButton_OnClick">
+                    Start
+                </Button>
+            </DockPanel>
+        </GroupBox>
+
+        <!-- Step 4 -->
+        <GroupBox Grid.Row="4"
+                  Header="4. Share your results">
+            <StackPanel>
+            <TextBlock TextWrapping="Wrap" TextAlignment="Justify">There should now be a file called *_hid-report.dump.txt on your Desktop, please submit it to the forums so your gamepad can get integrated into the ScpToolkit!</TextBlock>
+            <Label>
+                    <Hyperlink NavigateUri="http://forums.pcsx2.net/Thread-ScpToolkit-XInput-Wrapper-aka-ScpServer-Reloaded"
+                               RequestNavigate="Hyperlink_OnRequestNavigate">
+                        Open Forum Thread in default Browser
+                    </Hyperlink>
+            </Label>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Step 5 -->
+        <GroupBox Grid.Row="5"
+                  Header="5. Close device">
+            <DockPanel LastChildFill="False">
+                <TextBlock VerticalAlignment="Center" Margin="0,0,10,0">It's done! We can now free your device again and close it →</TextBlock>
+                <Button x:Name="CloseButton"
+                        IsEnabled="False"
+                        Click="CloseDeviceButton_OnClick">
+                    Close
+                </Button>
+            </DockPanel>
+        </GroupBox>
+    </Grid>
+</Window>

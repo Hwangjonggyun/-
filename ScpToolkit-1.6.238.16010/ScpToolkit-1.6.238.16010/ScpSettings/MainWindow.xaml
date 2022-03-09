@@ -1,0 +1,479 @@
+﻿<Window x:Class="ScpSettings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
+        xmlns:customControls="clr-namespace:ScpSettings.Controls"
+        xmlns:bluetooth="clr-namespace:ScpControl.Bluetooth;assembly=ScpControl"
+        xmlns:valueConverters="clr-namespace:ScpControl.Value_Converters;assembly=ScpControl"
+        Title="ScpToolkit Global Configuration" Height="650" Width="480" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Closing="Window_Closing" Initialized="Window_Initialized"
+        Icon="settings.ico">
+
+    <Grid Background="#FF1B1B1B">
+        <Grid.Resources>
+            <bluetooth:BthDs4 x:Key="BthDs4" />
+            <valueConverters:RadioBoolToIntConverter x:Key="RadioBoolToIntConverter" />
+            <Style TargetType="{x:Type TextBlock}">
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="TextAlignment" Value="Justify" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+            </Style>
+        </Grid.Resources>
+
+        <controls:Accordion Margin="10"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+            <!-- Global settings -->
+            <controls:AccordionItem Header="Global settings">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Flip axis -->
+                        <GroupBox Header="Flip Axis">
+                            <StackPanel>
+                                <TextBlock Margin="0,0,0,10">
+                                    Ticking one of the checkboxes below inverts the axis direction to its opposite.
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <CheckBox Grid.Row="0"
+                                              Grid.Column="0"
+                                              IsChecked="{Binding Path=FlipLX}">
+                                        Left thumb X-Axis
+                                    </CheckBox>
+
+                                    <CheckBox Grid.Row="1" Grid.Column="0"
+                                              IsChecked="{Binding Path=FlipLY}">
+                                        Left thumb Y-Axis
+                                    </CheckBox>
+
+                                    <CheckBox Grid.Row="0"
+                                              Grid.Column="1"
+                                              IsChecked="{Binding Path=FlipRX}">
+                                        Right thumb X-Axis
+                                    </CheckBox>
+
+                                    <CheckBox Grid.Row="1" Grid.Column="1"
+                                              IsChecked="{Binding Path=FlipRY}">
+                                        Right thumb Y-Axis
+                                    </CheckBox>
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Dead-zone threshold -->
+                        <GroupBox Header="Dead-zone threshold"
+                                  Grid.Row="1">
+                            <StackPanel>
+                                <TextBlock>
+                                    The so called "Dead Zone" is a virtual area on the controller where the Thumb Sticks are in their absolute zero/default position. Some controllers might be more sensitive to movement of the entire controller, falsely interpreting it as movement on the sticks. If your thumb sticks tend to jitter around even without touching anything, try to increase the values below.
+                                </TextBlock>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0"
+                                           HorizontalAlignment="Right">
+                                        Left Stick
+                                    </Label>
+
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           HorizontalAlignment="Right">
+                                        Right Stick
+                                    </Label>
+
+                                    <Slider Grid.Row="0" Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Margin="5" Maximum="127" LargeChange="8"
+                                            Value="{Binding Path=DeadZoneL}" />
+
+                                    <Slider Grid.Row="1" Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Margin="5" Maximum="127" LargeChange="8"
+                                            Value="{Binding Path=DeadZoneR}" />
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Idle Timeout -->
+                        <GroupBox Header="Idle Timeout: 10 minutes"
+                                  x:Name="IdleTimoutGroupBox"
+                                  Grid.Row="2">
+                            <StackPanel>
+                                <TextBlock>
+                                    Defines the timespan after the controller gets shut off automatically if no input changes are received.
+                                </TextBlock>
+                                <Slider Maximum="30"
+                                        Value="{Binding Path=IdleTimeout}"
+                                        ValueChanged="IdleTimoutSlider_ValueChanged"
+                                        LargeChange="5" SmallChange="1" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- Checkboxes -->
+                        <StackPanel Grid.Row="3" Margin="0,10,0,0">
+                            <TextBlock>
+                                Disabling Rumble will ignore any rumble requests sent to any connected controller.
+                            </TextBlock>
+                            <CheckBox IsChecked="{Binding Path=DisableRumble}">Disable Rumble</CheckBox>
+
+                            <TextBlock>
+                                Disabling the so called Native Feed will stop the service from broadcasting the "raw" controller inputs on the network. This might decrease latency a small bit but will also disable communication with any Add-Ons.
+                            </TextBlock>
+                            <CheckBox IsChecked="{Binding Path=DisableNative}">Disable Native Feed</CheckBox>
+
+                            <TextBlock>
+                                Secure Simple Pairing was introduced in the Bluetooth 2.1 + EDR specification. It's used for pairing DualShock 4 controllers. On problems with 3rd party controllers this feature can be disabled.
+                            </TextBlock>
+                            <CheckBox IsChecked="{Binding Path=DisableSSP}">Disable Secure Simple Pairing</CheckBox>
+
+                            <TextBlock>
+                                By default, incoming HID Reports get processed and passed through to the virtual controllers in a synchronous, blocking manner. If you experiance noticeable input lag you may try the "fire-and-forget"-approach by enabling the following option (Warning: might introduce alignment errors).
+                            </TextBlock>
+                            <CheckBox IsChecked="{Binding Path=UseAsyncHidReportProcessing}">Use asynchronous HID Report Processing</CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </controls:AccordionItem>
+
+            <!-- DualShock 3 specific -->
+            <controls:AccordionItem Header="DualShock 3 specific">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!-- Rumble Latency -->
+                        <GroupBox Header="Rumble Latency: 128 ms"
+                                  x:Name="RumbleLatencyGroupBox"
+                                  Grid.Row="0" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock>
+                                    Defines the minimal duration the rumble request will be sent to the controller until it stops.
+                                </TextBlock>
+                                <Slider LargeChange="1" Maximum="16"
+                                        Value="{Binding Path=Latency}" ValueChanged="Slider_ValueChanged" />
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- LEDs flashing period -->
+                        <GroupBox Header="LEDs flashing period: 300 ms"
+                                  x:Name="LEDsFlashingPeriodGroupBox"
+                                  Grid.Row="1" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock>
+                                    Defines LEDs flashing period when charging or dying.
+                                </TextBlock>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Minimum value -->
+                                    <Label Grid.Column="0">
+                                        300 ms
+                                    </Label>
+
+                                    <!-- Adjustment slider -->
+                                    <Slider Grid.Column="1"
+                                            TickFrequency="100" Maximum="2000" Minimum="300"
+                                            IsSnapToTickEnabled="True"
+                                            VerticalAlignment="Center"
+                                            Value="{Binding Path=Ds3LEDsPeriod}"
+                                            ValueChanged="Slider_LEDsPeriodChanged" />
+
+                                    <!-- Maximum value -->
+                                    <Label Grid.Column="2">
+                                        2000 ms
+                                    </Label>
+                                </Grid>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <!-- LED status -->
+                        <GroupBox Header="Leds status" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <RadioButton Grid.Row="0" Grid.Column="0" GroupName="led"
+                                             IsChecked="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=0}">
+                                    Disable
+                                </RadioButton>
+
+                                <RadioButton Grid.Row="1" Grid.Column="0" GroupName="led"
+                                             IsChecked="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=1}">
+                                    Pad ID
+                                </RadioButton>
+
+                                <RadioButton Grid.Row="2" Grid.Column="0" GroupName="led"
+                                             IsChecked="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=2}">
+                                    Charge status
+                                </RadioButton>
+
+                                <RadioButton Grid.Row="3" Grid.Column="0" GroupName="led"
+                                             IsChecked="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    Custom
+                                </RadioButton>
+
+                                <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+                                          VerticalContentAlignment="Center"
+                                          IsChecked="{Binding Path=Ds3PadIDLEDsFlashCharging}"
+                                          IsEnabled="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=1}">
+                                    Flash when charging or dying
+                                </CheckBox>
+
+                                <CheckBox Grid.Row="3" Grid.Column="1" VerticalContentAlignment="Center"
+                                          IsChecked="{Binding Path=Ds3LEDsCustom1}"
+                                          IsEnabled="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    1
+                                </CheckBox>
+                                <CheckBox Grid.Row="3" Grid.Column="2" VerticalContentAlignment="Center"
+                                          IsChecked="{Binding Path=Ds3LEDsCustom2}"
+                                          IsEnabled="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    2
+                                </CheckBox>
+                                <CheckBox Grid.Row="3" Grid.Column="3" VerticalContentAlignment="Center"
+                                          IsChecked="{Binding Path=Ds3LEDsCustom3}"
+                                          IsEnabled="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    3
+                                </CheckBox>
+                                <CheckBox Grid.Row="3" Grid.Column="4" VerticalContentAlignment="Center"
+                                          IsChecked="{Binding Path=Ds3LEDsCustom4}"
+                                          IsEnabled="{Binding Path=Ds3LEDsFunc, Converter={StaticResource RadioBoolToIntConverter}, ConverterParameter=3}">
+                                    4
+                                </CheckBox>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </controls:AccordionItem>
+
+            <!-- DualShock 4 specific -->
+            <controls:AccordionItem Header="DualShock 4 specific">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!-- HID Input update rate -->
+                    <GroupBox Header="HID Input update rate">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0">
+                                The DualShock 4 has the capability to alter the frequency it's sending input to the Bluetooth host. The default value is the highest possible rate the controller can utilize. Choose a lower value from the box below if you're experiencing high CPU consumption, leave it at the greatest value for maximum accuracy and lowest latency. If you change this setting, you have to re-connect your controller for it to take affect.
+                            </TextBlock>
+
+                            <DockPanel Grid.Row="1">
+                                <Label HorizontalAlignment="Right">HID Input update rate:</Label>
+                                <ComboBox
+                                    ItemsSource="{Binding Source={StaticResource BthDs4}, Path=UpdateRates}"
+                                    SelectedValue="{Binding Path=Ds4InputUpdateDelay, Mode=TwoWay}"
+                                    DisplayMemberPath="Value"
+                                    SelectedValuePath="Key" />
+                            </DockPanel>
+                        </Grid>
+                    </GroupBox>
+
+                    <!-- Light Bar Brightness -->
+                    <GroupBox Header="Light Bar Brightness: 50%"
+                              x:Name="BrightnessGroupBox"
+                              Grid.Row="1">
+                        <StackPanel>
+                            <Slider Maximum="255"
+                                    Value="{Binding Path=Brightness}" LargeChange="16"
+                                    ValueChanged="BrightnessSlider_ValueChanged" SmallChange="1" />
+                            <TextBlock>
+                                Hint: move the slider all the way to the left to disable the Light Bar entirely.
+                            </TextBlock>
+                        </StackPanel>
+                    </GroupBox>
+
+                    <!-- Checkboxes -->
+                    <StackPanel Grid.Row="2" Margin="10">
+                        <CheckBox IsChecked="{Binding Path=Repair}">Always re-pair controller on Usb connection</CheckBox>
+                    </StackPanel>
+                </Grid>
+            </controls:AccordionItem>
+
+            <!-- Service settings -->
+            <controls:AccordionItem Header="Service settings">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <GroupBox Header="Driver settings"
+                                  Grid.Row="0" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock>
+                                    By checking one or more of the checkboxes below the service will check you device drivers on every start-up and re-applies the correct driver on your Bluetooth dongle or Usb-wired DualShock controllers to ensure proper communication with the software.
+                                </TextBlock>
+                                <CheckBox IsChecked="{Binding Path=ForceBluetoothDriverReinstallation}">Force Bluetooth driver installation</CheckBox>
+                                <CheckBox IsChecked="{Binding Path=ForceDs3DriverReinstallation}">Force DualShock 3 driver installation</CheckBox>
+                                <CheckBox IsChecked="{Binding Path=ForceDs4DriverReinstallation}">Force DualShock 4 driver installation</CheckBox>
+                            </StackPanel>
+                        </GroupBox>
+
+                        <GroupBox Header="Virtual Xbox 360 controller driver"
+                                  Grid.Row="1" Margin="0,0,0,10">
+                            <StackPanel>
+                                <TextBlock>
+                                    Ticking the box below will prevent the virtual bus from creating plug-in or unplug events. You typically want to leave this setting unchanged unless for test scenarios.
+                                </TextBlock>
+                                <CheckBox IsChecked="{Binding Path=IsVBusDisabled}">Disable Virtual Bus events</CheckBox>
+                                <TextBlock>
+                                    The default behavior of the virtual Xbox 360 controller device created by the virtual bus is to linger in a connected state even if the physical gamepad gets disconnected (turned off). If you'd like the virtual Xbox 360 controller to "disconnect" from the system when the physical pad gets shut off, tick the box below.
+                                </TextBlock>
+                                <CheckBox IsChecked="{Binding Path=AlwaysDisconnectVirtualBusDevice}">Always unplug virtual controller</CheckBox>
+                                <TextBlock>
+                                    Pads get assigned a slot number when connecting. By default, all four available XInput-slots will be occupied by connected DualShock controllers in an ascending order. If you have an environment with other XInput-compatible devices (like a Microsoft Xbox 360 controller), tick the box below so only empty slots will be used.
+                                </TextBlock>
+                                <CheckBox IsChecked="{Binding Path=SkipOccupiedSlots}">Skip occupied gamepad slots</CheckBox>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </ScrollViewer>
+            </controls:AccordionItem>
+
+            <!-- Sound settings -->
+            <controls:AccordionItem Header="Sound settings">
+                <GroupBox Width="380">
+                    <GroupBox.Header>
+                        <CheckBox IsChecked="{Binding Path=SoundsEnabled}">Enable notification sounds</CheckBox>
+                    </GroupBox.Header>
+
+                    <StackPanel>
+                        <TextBlock>
+                            Startup:
+                        </TextBlock>
+                        <customControls:FileBrowserControl
+                            IsSoundEnabled="{Binding Path=IsStartupSoundEnabled, Mode=TwoWay}"
+                            FilePath="{Binding Path=StartupSoundFile, Mode=TwoWay}" />
+
+                        <TextBlock>
+                            Usb connect:
+                        </TextBlock>
+                        <customControls:FileBrowserControl
+                            IsSoundEnabled="{Binding Path=IsUsbConnectSoundEnabled, Mode=TwoWay}"
+                            FilePath="{Binding Path=UsbConnectSoundFile, Mode=TwoWay}" />
+
+                        <TextBlock>
+                            Usb disconnect:
+                        </TextBlock>
+                        <customControls:FileBrowserControl
+                            IsSoundEnabled="{Binding Path=IsUsbDisconnectSoundEnabled, Mode=TwoWay}"
+                            FilePath="{Binding Path=UsbDisconnectSoundFile, Mode=TwoWay}" />
+
+                        <TextBlock>
+                            Bluetooth connect:
+                        </TextBlock>
+                        <customControls:FileBrowserControl
+                            IsSoundEnabled="{Binding Path=IsBluetoothConnectSoundEnabled, Mode=TwoWay}"
+                            FilePath="{Binding Path=BluetoothConnectSoundFile, Mode=TwoWay}" />
+
+                        <TextBlock>
+                            Bluetooth disconnect:
+                        </TextBlock>
+                        <customControls:FileBrowserControl
+                            IsSoundEnabled="{Binding Path=IsBluetoothDisconnectSoundEnabled, Mode=TwoWay}"
+                            FilePath="{Binding Path=BluetoothDisconnectSoundFile, Mode=TwoWay}" />
+
+                    </StackPanel>
+                </GroupBox>
+            </controls:AccordionItem>
+
+            <!-- PCSX2 settings -->
+            <controls:AccordionItem Header="PCSX2 settings">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <!-- Pressure sensitivity -->
+                    <GroupBox Header="Pressure sensitivity" Grid.Row="0">
+                        <StackPanel>
+                            <TextBlock>
+                                Some PlayStation 2 games utilize the DualShock Model 2 and 3's pressure sensitive (analog) buttons. Common
+                                Windows APIs for Game Controllers like DirectInput and XInput do not support analog button states. Therefore
+                                the ScpToolkit comes with a customized XInput library and LilyPad mod which work around this limitation.
+                                First set the path to your PCSX2 installation (the folder containing the pcsx2-XXXXX.exe), then hit Enable to
+                                automatically patch it.
+                            </TextBlock>
+                            <GroupBox Header="PCSX2 location">
+                                <customControls:DirectoryBrowserControl
+                                    Description="Please select the folder containing the PCSX2 executable"
+                                    DirectoryPath="{Binding Path=Pcsx2RootPath, Mode=TwoWay}" />
+                            </GroupBox>
+
+                            <!-- Mod actions -->
+                            <GroupBox Header="Mod actions">
+                                <DockPanel LastChildFill="True">
+                                    <!-- Toggle button -->
+                                    <ToggleButton x:Name="XInputModToggleButton"
+                                                  Checked="XInputModToggleButton_OnChecked"
+                                                  IsChecked="{Binding Path=IsPressureSensitivityModEnabled}"
+                                                  Unchecked="XInputModToggleButton_Unchecked">
+                                        Enable
+                                    </ToggleButton>
+
+                                    <!-- Description -->
+                                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0">Enable/disable LilyPad modification</TextBlock>
+                                </DockPanel>
+                            </GroupBox>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </controls:AccordionItem>
+        </controls:Accordion>
+    </Grid>
+</Window>

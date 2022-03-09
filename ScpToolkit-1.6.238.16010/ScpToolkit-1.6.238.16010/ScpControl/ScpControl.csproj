@@ -1,0 +1,485 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DDECF06E-BE48-4610-8BF8-4AE5140D9F0C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ScpControl</RootNamespace>
+    <AssemblyName>ScpControl</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>8a118610</NuGetPackageImportStamp>
+    <AssemblyInfoFilePath>Properties\CommonInfo.cs</AssemblyInfoFilePath>
+    <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
+    <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
+    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
+    <AssemblyVersionSettings>None.None.IncrementOnDemand.DateStamp</AssemblyVersionSettings>
+    <AssemblyFileVersionSettings>None.None.IncrementOnDemand.DateStamp</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>
+    </AssemblyInfoVersionSettings>
+    <PrimaryVersionType>AssemblyVersionAttribute</PrimaryVersionType>
+    <AssemblyVersion>1.6.238.16010</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <Reference Include="CSScriptLibrary, Version=3.9.19.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.3.9.19.0\lib\net45\CSScriptLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DBreeze, Version=1.72.2015.827, Culture=neutral, PublicKeyToken=174b57f1c155f3c6, processorArchitecture=MSIL">
+      <HintPath>..\packages\DBreeze.1.72.0\lib\net45\DBreeze.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HidSharp, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\HidSharp.1.5\lib\net35\HidSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Libarius, Version=1.14.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Libarius.1.14.1\lib\Libarius.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MadMilkman.Ini, Version=1.0.5.0, Culture=neutral, PublicKeyToken=4e0b5157a7ffbb74, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MadMilkman.Ini.1.0.5.0\lib\net20\MadMilkman.Ini.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.CSharp, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\CS-Script.3.9.19.0\lib\net45\Mono.CSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PropertyChanged">
+      <HintPath>..\packages\PropertyChanged.Fody.1.50.3\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ReactiveSockets, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ReactiveSockets.0.2.6\lib\net40\ReactiveSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.XML" />
+    <Reference Include="Trinet.Core.IO.Ntfs">
+      <HintPath>..\packages\Trinet.Core.IO.Ntfs.3.5.0.0\lib\net35\Trinet.Core.IO.Ntfs.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsInput">
+      <HintPath>..\packages\InputSimulator.1.0.4.0\lib\net20\WindowsInput.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bluetooth\BthDongle.Hci.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDongle.L2cap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDongle.Tasks.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthConnection.Designer.cs">
+      <DependentUpon>BthConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bluetooth\BthDevice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDevice.Designer.cs">
+      <DependentUpon>BthDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bluetooth\BthDongle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDongle.Designer.cs">
+      <DependentUpon>BthDongle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bluetooth\BthDs3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDs3.Designer.cs">
+      <DependentUpon>BthDs3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bluetooth\BthDs4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthDs4.Designer.cs">
+      <DependentUpon>BthDs4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bluetooth\BthHandle.cs" />
+    <Compile Include="Bluetooth\BthHub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Bluetooth\BthHub.Designer.cs">
+      <DependentUpon>BthHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DBreezeEngineExtensions.cs" />
+    <Compile Include="Database\ScpDb.cs" />
+    <Compile Include="Driver\Devcon.cs" />
+    <Compile Include="Driver\Difx.cs" />
+    <Compile Include="Driver\DriverInstaller.cs" />
+    <Compile Include="Driver\LibusbKWrapper.cs" />
+    <Compile Include="Driver\NativeLibraryWrapper.cs" />
+    <Compile Include="Driver\PNPUtilLib\DriverStoreEntry.cs" />
+    <Compile Include="Driver\PNPUtilLib\IDriverStore.cs" />
+    <Compile Include="Driver\PNPUtilLib\PNPUtil.cs" />
+    <Compile Include="Driver\WdiWrapper.cs" />
+    <Compile Include="Driver\WinUsbWrapper.cs" />
+    <Compile Include="Exceptions\RootHubAlreadyStartedException.cs" />
+    <Compile Include="Plugins\IScpMapperProfile.cs" />
+    <Compile Include="Plugins\Mapper\RetroArchProfile.script.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Plugins\ScpMapperPlugins.cs" />
+    <Compile Include="Profiler\DualShockProfileManager.cs" />
+    <Compile Include="Profiler\VirtualMouse.cs" />
+    <Compile Include="Properties\CommonInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Rx\IChannel.cs" />
+    <Compile Include="Rx\ScpNativeFeedChannel.cs" />
+    <Compile Include="ScpCore\SingletonBase.cs" />
+    <Compile Include="Scripting.cs" />
+    <Compile Include="Sound\AudioPlayer.cs" />
+    <Compile Include="Usb\Gamepads\UsbBadBigBenGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbGenericGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Ds3\Replica\UsbDs3Afterglow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbGameStopPcAdvanced.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbLsiLogicGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Ds3\Replica\UsbDs3QuadStick.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbMadcatzTournamentEdition2Fightstick.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbShanWanWirelessGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbSnesGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Gamepads\UsbBlankGamepad.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\UsbHub.3rdPartyFixes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\UsbSpecification.cs" />
+    <Compile Include="Utilities\AssemblyHelper.cs" />
+    <Compile Include="Utilities\ByteArrayExtensions.cs" />
+    <Compile Include="Utilities\ConcurrentDictionaryExtensions.cs" />
+    <Compile Include="Utilities\DumpHelper.cs" />
+    <Compile Include="Utilities\EnumExtensions.cs" />
+    <Compile Include="Utilities\FileDownloader.cs" />
+    <Compile Include="Utilities\FileExtensions.cs" />
+    <Compile Include="Utilities\GenericGamepadConfig.cs" />
+    <Compile Include="Utilities\MacAddressGenerator.cs" />
+    <Compile Include="Utilities\OSVersionInfoClass.cs" />
+    <Compile Include="Utilities\PhysicalAddressExtensions.cs" />
+    <Compile Include="Utilities\PortableSettingsProvider.cs" />
+    <Compile Include="Utilities\TaskQueue.cs" />
+    <Compile Include="Value Converters\EnumDescriptionConverter.cs" />
+    <Compile Include="Value Converters\RadioBoolToIntConverter.cs" />
+    <Compile Include="Wcf\IScpCommandService.cs" />
+    <Compile Include="ScpCore\GlobalConfiguration.cs" />
+    <Compile Include="Bluetooth\HCI.cs" />
+    <Compile Include="Bluetooth\L2CAP.cs" />
+    <Compile Include="ScpDevice.Interop.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScpProxy.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScpProxy.Designer.cs">
+      <DependentUpon>ScpProxy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Usb\UsbDevice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\UsbDevice.Designer.cs">
+      <DependentUpon>UsbDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usb\Ds4\UsbDs4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Ds4\UsbDs4.Designer.cs">
+      <DependentUpon>UsbDs4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RootHub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RootHub.Designer.cs">
+      <DependentUpon>RootHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusDevice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BusDevice.Designer.cs">
+      <DependentUpon>BusDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScpDevice.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScpDevice.Designer.cs">
+      <DependentUpon>ScpDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScpHub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScpHub.Designer.cs">
+      <DependentUpon>ScpHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScpUtil.cs" />
+    <Compile Include="Usb\Ds3\UsbDs3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\Ds3\UsbDs3.Designer.cs">
+      <DependentUpon>UsbDs3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Usb\UsbHub.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Usb\UsbHub.Designer.cs">
+      <DependentUpon>UsbHub.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ControlExtensions.cs" />
+    <Compile Include="Utilities\ILogExtensions.cs" />
+    <Compile Include="Utilities\IniConfig.cs" />
+    <Compile Include="Utilities\OsInfoHelper.cs" />
+    <Compile Include="Utilities\StringExtensions.cs" />
+    <Compile Include="Utilities\ThemeUtil.cs" />
+    <Compile Include="XInput\XInputNatives.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Bluetooth\BthDevice.resx">
+      <DependentUpon>BthDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bluetooth\BthDongle.resx">
+      <DependentUpon>BthDongle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScpProxy.resx">
+      <DependentUpon>ScpProxy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usb\UsbDevice.resx">
+      <DependentUpon>UsbDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usb\Ds4\UsbDs4.resx">
+      <DependentUpon>UsbDs4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RootHub.resx">
+      <DependentUpon>RootHub.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Usb\Ds3\UsbDs3.resx">
+      <DependentUpon>UsbDs3.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DIFxAPI\amd64\DIFxAPI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DIFxAPI\x86\DIFxAPI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FodyWeavers.xml" />
+    <Content Include="irrKlang\amd64\ikpFlac.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="irrKlang\amd64\ikpMP3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="irrKlang\amd64\irrKlang.NET4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="irrKlang\x86\ikpFlac.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="irrKlang\x86\ikpMP3.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="irrKlang\x86\irrKlang.NET4.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Libarius.XML" />
+    <Content Include="libusbK\amd64\libusb0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libusbK\amd64\libusbK.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libusbK\x86\libusb0.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libusbK\x86\libusbK.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libwdi\amd64\libwdi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libwdi\x86\libwdi.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LilyPad\LilyPad-Scp-r5875.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\connect.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\disconnect.flac">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\startup.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="System\ScpVBus.inf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\vista_xp\x64\wdfcoinstaller01007.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\vista_xp\x86\wdfcoinstaller01007.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\vista_xp\xusb21.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\x64\wdfcoinstaller01009.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\x86\wdfcoinstaller01009.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\xusb21.inf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ScpControlClassDiagram.cd" />
+    <None Include="packages.config" />
+    <None Include="ScpControl.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="System\amd64\ScpVBus.sys">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="System\ScpVBus.cat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="System\x86\ScpVBus.sys">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Xbox360\driver\vista_xp\x64\xusb21.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\vista_xp\x86\xusb21.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\vista_xp\xusb21.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\x64\xusb21.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\x86\xusb21.sys">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Xbox360\driver\win7\xusb21.cat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ScpControl.Shared\ScpControl.Shared.csproj">
+      <Project>{dcc3a7cd-b7f3-42f0-b1ab-c55ad82c4593}</Project>
+      <Name>ScpControl.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
